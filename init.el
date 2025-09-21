@@ -1,19 +1,3 @@
-;; Jake Sykes's Emacs Config!
-
-(setq custom-file "~/.config/emacs/custom.el")
-(load custom-file)
-
-(setq make-backup-files nil)
-(setq create-lockfiles nil)
-
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(tooltip-mode -1)
-(menu-bar-mode -1)
-
-(setq display-line-numbers-type 'relative)
-(global-display-line-numbers-mode 1)
-
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
@@ -29,14 +13,24 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+(setq custom-file "~/.config/emacs/custom.el")
+(load custom-file)
+
+(setq make-backup-files nil)
+(setq create-lockfiles nil)
+(auto-save-visited-mode)
+
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(tooltip-mode -1)
+(menu-bar-mode -1)
+
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode 1)
+
 (use-package doom-themes
   :config
   (load-theme 'doom-henna))
-
-(use-package which-key
-  :commands (which-key-mode)
-  :init
-  (which-key-mode))
 
 (use-package vertico
   :init
@@ -46,6 +40,8 @@
   :after vertico
   :init
   (marginalia-mode))
+
+(use-package magit)
 
 (use-package org-roam
   :custom
@@ -60,4 +56,7 @@
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode))
 
-(use-package magit)
+(use-package which-key
+  :commands (which-key-mode)
+  :init
+  (which-key-mode))
